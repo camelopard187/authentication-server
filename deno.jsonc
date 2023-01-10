@@ -1,3 +1,6 @@
 {
-  "tasks": {}
+  "tasks": {
+    "database:migrate": "deno run\n  --allow-read --allow-net --allow-env\n  https://deno.land/x/nessie/cli.ts migrate\n  --config='db/nessie.config.ts'",
+    "database:rollback": "deno run\n  --allow-read --allow-net --allow-env\n  https://deno.land/x/nessie/cli.ts rollback\n  --config='db/nessie.config.ts'"
+  }
 }
