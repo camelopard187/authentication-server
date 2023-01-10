@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  migrate:
+    command: >
+      ./wait-for-it.sh db:5432 --
+      deno run --allow-read --allow-net --allow-env
+      https://deno.land/x/nessie/cli.ts migrate
+    image: migrate
+    build:
+      context: ../../
+      dockerfile: test/docker/migrate.dockerfile
+    env_file: ./config/.env.migration
+    depends_on:
+      - 'db'
+  db:
+    image: postgres:alpine
+    ports:
+      - 5433:5432
+    env_file: ./config/.env.postgres
+    restart: on-failure
